@@ -5,7 +5,7 @@ import AuthDetails from "./auth/AuthDetails";
 
 const NavBar = () => {
   return (
-    <nav className="flex flex-row justify-around py-5">
+    <nav className="flex flex-row justify-around py-5 p-1">
       <div>
         <img src={PlutoLogo} alt="el planeta pluto en 3d" className="h-10" />
       </div>

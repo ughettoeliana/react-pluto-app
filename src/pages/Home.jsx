@@ -7,10 +7,13 @@ import fullPlutoLogo from "../assets/full-logo-pluto.svg";
 import googlePlayLogo from "../assets/google-play-store.png";
 import appleStoreLogo from "../assets/app-store-download.png";
 import BaseButton from "../components/BaseButton";
+import Navbar from "../components/NavBar";
+
 
 function App() {
   return (
     <>
+    <Navbar/>
       <section id="hero">
         <div className="container flex flex-col-reverse items-center px-6 mx-auto mt-10 space-y-0 md:space-y-0 md:flex-row">
           <div className="flex flex-col mb-32 space-y-12 md:w-1/2">
