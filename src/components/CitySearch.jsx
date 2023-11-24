@@ -1,41 +1,59 @@
 import React, { useState } from "react";
 import BaseInput from "./BaseInput";
+import getCities from "../services/cities";
 
-const CitySearch = ({onSelectCity}) => {
+const CitySearch = ({ onSelectCity }) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
   const [isOpen, setIsOpen] = useState(true);
 
-  const handleChange = async (event) => {
+  console.log("selectedCity", selectedCity);
+
+  const handleChange = (event) => {
     const value = event.target.value;
     setQuery(value);
+    selectingCities();
+  };
 
+  const selectingCities = async () => {
     try {
-      const response = await fetch(
-        `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
-          value
-        )}&key=5defbe14934349baa8cc1a4dddb50324`
-      );
+       if (query.length > 0) {
+         const foundCities = await getCities(query);
+         setResults(foundCities);
+   
+         // Abrir el componente de búsqueda cuando se comienza a escribir
+         setIsOpen(true);
+       }
+    } catch (error) {
+       console.error("Error searching for cities:", error);
+    }
+   };
 
-      const data = await response.json();
-
-      if (data.results) {
-        const locations = data.results.map((result) => ({
-          name: result.formatted,
-          latitude: result.geometry.lat,
-          longitude: result.geometry.lng,
-        }));
-
-        setResults(locations);
+  const searchCities = async () => {
+    try {
+      if (
+        selectedCity &&
+        selectedCity.latitude !== undefined &&
+        selectedCity.longitude !== undefined
+      ) {
+        const foundCities = await getCities(
+          selectedCity.latitude,
+          selectedCity.longitude,
+          query
+        );
+        console.log("foundCities: ", foundCities);
+        setResults(foundCities);
       } else {
-        console.error("No results found.");
+        console.warn(
+          "Latitude or longitude is undefined. Skipping city search."
+        );
+        setResults([]); // Puedes limpiar los resultados si no hay ciudad seleccionada
       }
     } catch (error) {
       console.error("Error searching for cities:", error);
     }
   };
-
 
   const handleSelectCity = (city) => {
     setSelectedCity(city);
@@ -54,6 +72,7 @@ const CitySearch = ({onSelectCity}) => {
           required
           className="w-1/2"
           type="search"
+          name="search"
           value={query}
           onChange={handleChange}
         />
