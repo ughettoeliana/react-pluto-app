@@ -4,17 +4,17 @@ import BaseInput from "./BaseInput";
 import BaseButton from "./BaseButton";
 import { useNavigate } from "react-router-dom";
 import getSign from "../services/signs";
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../services/firebase';
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../services/firebase";
 
-const SearchUserSign = ({newUserId}) => {
+const SearchUserSign = ({ newUserId }) => {
   const [formData, setFormData] = useState({
     birthdate: "",
     latitude: "",
     longitude: "",
   });
 
-  const [sign, setSign] = useState([]);
+  const [userPlanetsData, setUserPlanetsData] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
   const navigate = useNavigate();
 
@@ -35,10 +35,10 @@ const SearchUserSign = ({newUserId}) => {
   const handleSubmit = async () => {
     console.log("Datos ingresados:", formData);
     try {
-      const userSign = await getSign(formData);
-      setSign(userSign);
-      if (userSign) {
-        addUserSign(userSign)
+      const planetsData = await getSign(formData);
+      setUserPlanetsData(planetsData);
+      if (planetsData) {
+        addUserPlanetsData(planetsData);
         navigate(`/user-home/${newUserId}`);
       } else {
         console.log("hubo un error");
@@ -48,18 +48,40 @@ const SearchUserSign = ({newUserId}) => {
     }
   };
 
- const addUserSign = async (sign) => {
-  try {
-    const userRef = doc(db, 'users', newUserId)
-    await updateDoc(userRef, {
-      sign: sign,
-    });
+  const addUserPlanetsData = async (planetsData) => {
+    try {
+      if (!planetsData || !planetsData[0] || !planetsData[0].observed) {
+        throw new Error("Datos de planetas inválidos");
+      }
 
-    console.log('Signo agregado al usuario con ID:', newUserId);
-  } catch (error) {
-    console.error('Error al agregar el signo al usuario:', error);
-  }
- }
+      const observed = planetsData[0].observed;
+
+      const planetsArray = [];
+
+      for (const planetName in observed) {
+        if (observed.hasOwnProperty(planetName)) {
+          const planetData = observed[planetName];
+
+          const name = planetData.name || "NombreDesconocido";
+          const zodiacSign = planetData.zodiacSign || "SignoDesconocido";
+
+          planetsArray.push({
+            name: name,
+            zodiacSign: zodiacSign,
+          });
+        }
+      }
+
+      const userRef = doc(db, "users", newUserId);
+      await updateDoc(userRef, {
+        planetsData: planetsArray,
+      });
+
+      console.log("Datos de planetas agregados al usuario con ID:", newUserId);
+    } catch (error) {
+      console.error("Error al agregar datos de planetas al usuario:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen my-28">
@@ -89,9 +111,12 @@ const SearchUserSign = ({newUserId}) => {
       </div>
       <div>
         <ul>
-          {sign &&
-            sign.map((sign, index) => (
-              <li key={index}>{sign.signoZodiacal}</li>
+          {userPlanetsData &&
+            userPlanetsData.map((planet, index) => (
+              <div>
+                <li key={index}>{planet.zodiacSign}</li>
+                <li key={index}>{planet.name}</li>
+              </div>
             ))}
         </ul>
       </div>
