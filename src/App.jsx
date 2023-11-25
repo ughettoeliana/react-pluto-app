@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import PlanetInfo from "./pages/PlanetInfo";
 import UserHome from "./pages/UserHome";
+import Cicles from "./pages/Cicles";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/user-home" element={<UserHome />} />
         <Route path="/planet-info/:planetName" element={<PlanetInfo />} />
+        <Route path="/cicles" element={<Cicles />} />
       </Routes>
     </div>
   );

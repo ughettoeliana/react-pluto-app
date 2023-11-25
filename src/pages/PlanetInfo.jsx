@@ -42,7 +42,7 @@ export default function PlanetInfo() {
   console.log("planetName", planetName);
 
   return (
-    <div>
+    <>
      <UpperUserNavComponent />
 
       <button onClick={goBack}>
@@ -53,15 +53,14 @@ export default function PlanetInfo() {
         <h2 className="text-2xl pb-3">{planetName}</h2>
         {imgSrc && <img src={imgSrc} alt={planetName} className=" " />}
       </div>
-      <div className="bg-darkGrey p-2 my-5 rounded-tl-3xl rounded-tr-3xl max-h-screen">
-        <h3 className="text-2xl text-center p-2">@User.Signo</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolore ea
-          deleniti in? Accusantium soluta illum obcaecati in aliquam, quam fuga
-          nihil mollitia earum qui recusandae corrupti eos ad aspernatur.
+      <div className="bg-darkGrey p-3 pb-16 my-4 rounded-tl-3xl rounded-tr-3xl max-h-screen tracking-wide">
+        <h3 className="text-2xl text-center p-3">@User.Signo</h3>
+        <p className="p-2">El sol revela la cualidad básica de nuestra consciencia, es el factor central de nuestra personalidad, del mismo modo como el Sol es el centro de nuestra galaxia.
         </p>
+        <br />
+        <p className="p-2">El elemento solar para este signo muestra el estado de conciencia y aquello que le motiva, fortalece y lo que le apasiona. El Sol en Géminis destaca su mente rápida, razonamientos lógicos y su interés por la comunicación. Para ellos la relación con otras personas es esencial, domina la oratoria, mantener una conversación interesante y viva.</p>
       </div>
       <LowerUserNav/>
-    </div>
+    </>
   );
 }
