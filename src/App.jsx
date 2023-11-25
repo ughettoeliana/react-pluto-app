@@ -13,11 +13,11 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/get-sign" element={<GetSign />} />
+        <Route path="/get-sign/:newUserId"  element={<GetSign />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/user-home" element={<UserHome />} />
-        <Route path="/planet-info/:planetName" element={<PlanetInfo />} />
+        <Route path="/user-home/:userId" element={<UserHome />} />
+        <Route path="/planet-info/:planetName/:userSign" element={<PlanetInfo />} />
         <Route path="/cicles" element={<Cicles />} />
       </Routes>
     </div>

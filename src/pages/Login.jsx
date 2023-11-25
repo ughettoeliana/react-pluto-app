@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BaseInput from "../components/BaseInput";
 import BaseButton from "../components/BaseButton";
-import LoaderComponent from "../components/Loader";
+import BtnLoader from "../components/BtnLoader";
 import ErrorMessage from "../components/ErrorMessage";
 import Navbar from "../components/NavBar";
 
@@ -98,7 +98,7 @@ function Login() {
             </h3>
           </div>
           {loginLoader ? (
-            <LoaderComponent className="bg-blue rounded-xl" />
+            <BtnLoader />
           ) : (
             <div className="flex flex-col">
               <BaseButton

@@ -1,7 +1,11 @@
 import SearchUserSign from "../components/GetUserSign";
 import Navbar from "../components/NavBar";
+import { useParams } from "react-router-dom";
 
 const GetSign = () => {
+  const { newUserId } = useParams();
+  console.log("newUserId:", newUserId);
+
   return (
     <>
       <Navbar />
@@ -12,7 +16,7 @@ const GetSign = () => {
           naciste.
         </p>
       </div>
-      <SearchUserSign className="py-4 my-10" />
+      <SearchUserSign newUserId={newUserId} className="py-4 my-10" />
     </>
   );
 };

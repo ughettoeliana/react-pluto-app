@@ -4,15 +4,17 @@ import BaseInput from "./BaseInput";
 import BaseButton from "./BaseButton";
 import { useNavigate } from "react-router-dom";
 import getSign from "../services/signs";
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../services/firebase';
 
-const SearchUserSign = () => {
+const SearchUserSign = ({newUserId}) => {
   const [formData, setFormData] = useState({
     birthdate: "",
     latitude: "",
     longitude: "",
   });
 
-  const [signs, setSigns] = useState([]);
+  const [sign, setSign] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
   const navigate = useNavigate();
 
@@ -33,10 +35,11 @@ const SearchUserSign = () => {
   const handleSubmit = async () => {
     console.log("Datos ingresados:", formData);
     try {
-      const sign = await getSign(formData);
-      setSigns(sign);
-      if (sign) {
-        navigate("/user-home");
+      const userSign = await getSign(formData);
+      setSign(userSign);
+      if (userSign) {
+        addUserSign(userSign)
+        navigate(`/user-home/${newUserId}`);
       } else {
         console.log("hubo un error");
       }
@@ -45,9 +48,18 @@ const SearchUserSign = () => {
     }
   };
 
-  const goBack = () => {
-    navigate(-1);
-  };
+ const addUserSign = async (sign) => {
+  try {
+    const userRef = doc(db, 'users', newUserId)
+    await updateDoc(userRef, {
+      sign: sign,
+    });
+
+    console.log('Signo agregado al usuario con ID:', newUserId);
+  } catch (error) {
+    console.error('Error al agregar el signo al usuario:', error);
+  }
+ }
 
   return (
     <div className="min-h-screen my-28">
@@ -77,8 +89,8 @@ const SearchUserSign = () => {
       </div>
       <div>
         <ul>
-          {signs &&
-            signs.map((sign, index) => (
+          {sign &&
+            sign.map((sign, index) => (
               <li key={index}>{sign.signoZodiacal}</li>
             ))}
         </ul>

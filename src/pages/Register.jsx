@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BaseInput from "../components/BaseInput";
 import BaseButton from "../components/BaseButton";
-import Loader from "../components/Loader";
+import BtnLoader from "../components/BtnLoader";
 import ErrorMessage from "../components/ErrorMessage";
 import Navbar from "../components/NavBar";
 import { auth } from "../services/firebase";
@@ -56,8 +56,6 @@ function Register() {
         const user = userCredentials.user;
 
         await addUserToFirestore(user);
-        navigate("/get-sign");
-
         console.log("Cuenta creada con éxito");
       }
     } catch (error) {
@@ -74,15 +72,14 @@ function Register() {
         id: user.uid,
         email: user.email,
       });
+      console.log('newUser.id', newUser.id)
       setNewUserId(newUser.id)
-      console.log("newUser.id", newUser.id);
+      navigate(`/get-sign/${newUser.id}`);
+      console.log("newUserId:",newUserId)
     }
     console.log("El usuario se agrego a firebase");
   };
 
-  const handleGetUserSign = () => {
-    navigate("/get-sign");
-  };
 
   return (
     <>
@@ -131,7 +128,7 @@ function Register() {
             </div>
 
             {registerLoader ? (
-              <Loader className="bg-blue rounded-xl" />
+              <BtnLoader />
             ) : (
               <div className="flex flex-col">
                 <BaseButton
