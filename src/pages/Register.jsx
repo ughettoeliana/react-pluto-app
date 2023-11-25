@@ -13,11 +13,12 @@ import {
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 
-function Register({ location }) {
+function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [registerLoader, setRegisterLoader] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [newUserId, setNewUserId] = useState(null);
 
   const navigate = useNavigate();
 
@@ -55,6 +56,7 @@ function Register({ location }) {
         const user = userCredentials.user;
 
         await addUserToFirestore(user);
+        navigate("/get-sign");
 
         console.log("Cuenta creada con éxito");
       }
@@ -65,15 +67,17 @@ function Register({ location }) {
     }
   };
 
-  const addUserToFirestore = async (userId) => {
-    if (userId) {
+  const addUserToFirestore = async (user) => {
+    if (user) {
       const usersCollectionRef = collection(db, "users");
-      await addDoc(usersCollectionRef, {
-        id: userId,
-        email: email,
+      const newUser = await addDoc(usersCollectionRef, {
+        id: user.uid,
+        email: user.email,
       });
-      console.log("El usuario se agregó a firebase con datos del signo");
+      setNewUserId(newUser.id)
+      console.log("newUser.id", newUser.id);
     }
+    console.log("El usuario se agrego a firebase");
   };
 
   const handleGetUserSign = () => {
@@ -133,7 +137,7 @@ function Register({ location }) {
                 <BaseButton
                   btnText="Continuar"
                   className="my-4"
-                  onClick={handleGetUserSign}
+                  onClick={register}
                 />
               </div>
             )}

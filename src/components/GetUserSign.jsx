@@ -37,43 +37,37 @@ const SearchUserSign = () => {
       setSigns(sign);
       if (sign) {
         navigate("/user-home");
-      }else {
-        console.log('hubo un error')
+      } else {
+        console.log("hubo un error");
       }
     } catch (error) {
       console.error("Error al obtener el signo:", error);
     }
   };
 
-
   const goBack = () => {
     navigate(-1);
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen my-28">
       <CitySearch onSelectCity={onSelectCity} />
 
       <div className="w-full flex flex-col gap-4">
         <div
           key="sm"
-          className="flex w-full justify-center flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4"
+          className="flex w-full justify-center flex-wrap gap-4 md:flex-nowrap mb-6 md:mb-0 "
         >
           <BaseInput
             type="date"
-            className=""
+            className="w-1/2"
             required
             name="birthdate"
             value={formData.birthdate}
             onChange={handleChange}
           />
         </div>
-        <div className="flex flex-row justify-around items-center">
-          <BaseButton
-            btnText="Volver"
-            className=" bg-slate-500 text-white shadow-lg self-center rounded-2xl"
-            onClick={goBack}
-          ></BaseButton>
+        <div className="flex flex-row justify-center items-center">
           <BaseButton
             btnText="Crear cuenta"
             className=" bg-blue text-white shadow-lg self-center rounded-2xl"
@@ -82,7 +76,6 @@ const SearchUserSign = () => {
         </div>
       </div>
       <div>
-        <h2>Signo:</h2>
         <ul>
           {signs &&
             signs.map((sign, index) => (
