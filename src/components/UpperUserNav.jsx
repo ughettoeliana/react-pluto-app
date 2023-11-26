@@ -4,11 +4,12 @@ import notification from "../assets/notification-icon.svg";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { useParams } from "react-router-dom";
+import GeneralLoader from "../components/GeneralLoader";
 
 export default function UpperNav() {
   const [email, setEmail] = useState();
   const { userId } = useParams();
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,7 +32,7 @@ export default function UpperNav() {
     <nav className="flex flex-row justify-between items-center p-2 mb-3">
       <div className="flex flex-row items-center ">
         <img src={profilePic} alt="foto del usuario" className="h-12" />
-        <p className="px-2 mx-2">Hola {email}</p>
+        {email ? <p className="px-2 mx-2">Hola {email}</p> : <GeneralLoader className='p-4'/>}
       </div>
       <div>
         <img src={notification} />

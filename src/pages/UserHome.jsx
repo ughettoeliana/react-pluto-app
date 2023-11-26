@@ -11,7 +11,6 @@ import UpperUserNavComponent from "../components/UpperUserNav";
 
 
 
-
 function UserHome() {
   const { userId } = useParams();
 
@@ -47,15 +46,15 @@ function UserHome() {
         </div>
         <div className="my-4">
           <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-3 mx-2 my-4">
-            <Link to="/cicles">CICLOS </Link>
+            <Link to={`/cicles/${userId}`}>CICLOS </Link>
             <img src={arrow} alt="arrow icon" />
           </div>
           <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-3 mx-2 my-4">
-            <Link to="/cicles">CICLOS </Link>
+            <Link to={`/cicles/${userId}`}>CICLOS </Link>
             <img src={arrow} alt="arrow icon" />
           </div>
           <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-3 mx-2 my-4">
-            <Link to="/cicles">CICLOS </Link>
+            <Link to={`/cicles/${userId}`}>CICLOS </Link>
             <img src={arrow} alt="arrow icon" />
           </div>
         </div>

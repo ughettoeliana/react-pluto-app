@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import getSign from "../services/signs";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
+import ErrorMessage from "./ErrorMessage";
 
 const SearchUserSign = ({ newUserId }) => {
   const [formData, setFormData] = useState({
@@ -16,11 +17,11 @@ const SearchUserSign = ({ newUserId }) => {
 
   const [userPlanetsData, setUserPlanetsData] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
 
   const onSelectCity = (city) => {
     setSelectedCity(city);
-    console.log("onSelectCity", city);
   };
 
   const handleChange = (e) => {
@@ -33,7 +34,6 @@ const SearchUserSign = ({ newUserId }) => {
   };
 
   const handleSubmit = async () => {
-    console.log("Datos ingresados:", formData);
     try {
       const planetsData = await getSign(formData);
       setUserPlanetsData(planetsData);
@@ -41,7 +41,7 @@ const SearchUserSign = ({ newUserId }) => {
         addUserPlanetsData(planetsData);
         navigate(`/user-home/${newUserId}`);
       } else {
-        console.log("hubo un error");
+        setErrorMessage("Algo salió mal volvé a intentarlo");
       }
     } catch (error) {
       console.error("Error al obtener el signo:", error);
@@ -76,34 +76,37 @@ const SearchUserSign = ({ newUserId }) => {
       await updateDoc(userRef, {
         planetsData: planetsArray,
       });
-
-      console.log("Datos de planetas agregados al usuario con ID:", newUserId);
     } catch (error) {
       console.error("Error al agregar datos de planetas al usuario:", error);
     }
   };
 
   return (
-    <div className="min-h-screen my-28">
+    <div className="min-h-screen my-20">
       <CitySearch onSelectCity={onSelectCity} />
 
-      <div className="w-full flex flex-col gap-4">
-        <div
-          key="sm"
-          className="flex w-full justify-center flex-wrap gap-4 md:flex-nowrap mb-6 md:mb-0 "
-        >
-          <label className="p-1" htmlFor="email">
-            Ingresá la fecha de tu nacimiento
+      <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col mb-6">
+          <label className="p-1" htmlFor="date">
+            Fecha de nacimiento
           </label>
           <BaseInput
-            type="date"
-            className="w-1/2"
+            id="date"
             required
-            name="birthdate"
+            type="date"
+            name="date"
             value={formData.birthdate}
             onChange={handleChange}
-          />
+            style={{
+              appearance: 'none', 
+              fontSize: '1rem',
+              padding: '0.375rem 0.75rem',
+              border: '1px solid #a0aec0', // Puedes ajustar el color del borde según tus necesidades
+              borderRadius: '0.25rem',
+            }}            />
         </div>
+        {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+
         <div className="flex flex-row justify-center items-center">
           <BaseButton
             btnText="Crear cuenta"

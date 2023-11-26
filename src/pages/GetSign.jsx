@@ -9,7 +9,7 @@ const GetSign = () => {
   return (
     <>
       <Navbar />
-      <div className="p-4">
+      <div className="p-4 flex flex-col justify-center items-center">
         <h2 className="text-2xl py-4">Fecha y lugar de tu nacimiento</h2>
         <p>
           Es para determinar en que posición estaba el sol el día en que

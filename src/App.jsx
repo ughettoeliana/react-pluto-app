@@ -21,7 +21,7 @@ function App() {
           path="/planet-info/:planetName/:userId"
           element={<PlanetInfo />}
         />
-        <Route path="/cicles" element={<Cicles />} />
+        <Route path="/cicles/:userId" element={<Cicles />} />
         <Route path="/user-profile/:userId" element={<UserProfile />} />
         {/* <Route path="/user-chat" element={<Chat />} /> */}
       </Routes>

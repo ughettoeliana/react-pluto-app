@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import BaseInput from "./BaseInput";
 import getCities from "../services/cities";
+import ErrorMessage from "./ErrorMessage";
 
 const CitySearch = ({ onSelectCity }) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [isOpen, setIsOpen] = useState(true);
 
@@ -22,12 +24,11 @@ const CitySearch = ({ onSelectCity }) => {
         const foundCities = await getCities(query);
         setResults(foundCities);
 
-        // Abrir el componente de búsqueda cuando se comienza a escribir
         setIsOpen(true);
       }
     } catch (error) {
-      console.error("Error searching for cities:", error);
-    }
+      setErrorMessage('Algo salió mal volvé a interlo')
+s    }
   };
 
   const searchCities = async () => {
@@ -48,7 +49,7 @@ const CitySearch = ({ onSelectCity }) => {
         console.warn(
           "Latitude or longitude is undefined. Skipping city search."
         );
-        setResults([]); // Puedes limpiar los resultados si no hay ciudad seleccionada
+        setResults([]); 
       }
     } catch (error) {
       console.error("Error searching for cities:", error);
@@ -64,7 +65,24 @@ const CitySearch = ({ onSelectCity }) => {
 
   return (
     <div>
-      <div
+      <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col mb-6">
+          <label className="p-1" htmlFor="search">
+            Lugar de nacimiento
+          </label>
+          <BaseInput
+            id="search"
+            required
+            type="search"
+            name="search"
+            value={query}
+            onChange={handleChange}
+          />
+        </div>
+        {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      </div>
+
+      {/* <div
         key="sm"
         className="flex w-full justify-center flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4"
       >
@@ -79,7 +97,7 @@ const CitySearch = ({ onSelectCity }) => {
           value={query}
           onChange={handleChange}
         />
-      </div>
+      </div> */}
       {isOpen && (
         <ul className="rounded-md ">
           {results.map((location) => (

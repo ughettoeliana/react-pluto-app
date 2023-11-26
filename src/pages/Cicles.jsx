@@ -5,6 +5,7 @@ import arrow from "../assets/arrow-right.svg";
 import grafica from "../assets/grafica.svg";
 
 export default function Cicles() {
+  
   return (
     <div>
       <UpperNav />
