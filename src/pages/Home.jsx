@@ -131,7 +131,7 @@ function App() {
       </section>
 
       <section id="testimonials">
-        <div className="max-w-6xl px-5 mx-auto mt-32 text-center">
+        <div className="max-w-6xl px-5 mx-auto mt-32 mb-28 text-center">
           <h2 className="text-4xl font-bold text-center">
             ¿Que dicen de PLUTO?
           </h2>
@@ -170,16 +170,10 @@ function App() {
               </p>
             </div>
           </div>
-          <div className="my-16">
-            {/* <BaseButton
-              btnText={"Descarga la App"}
-              className="bg-indigo-500 hover:bg-indigo-600 "
-            /> */}
-          </div>
         </div>
       </section>
 
-      <section id="downloadApp" className="bg-blue">
+      <section id="downloadApp" className="bg-blue bg-opacity-80">
         <div className="container flex flex-col items-center justify-between px-6 py-24 mx-auto space-y-12 md:py-12 md:flex-row md:space-y-0 md:w-auto">
           <div>
             <h2 className="text-3xl font-bold text-center md:text-4xl md:max-w-xl">

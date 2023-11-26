@@ -27,8 +27,11 @@ function Login() {
 
         if (!userCredentials) {
           setErrorMessage("El correo electrónico no es válido");
+        }else{
+          const userId = userCredentials.user.uid;
+
+          navigate(`/user-home/${userId}`);
         }
-        navigate("/get-sign");
       })
       .catch((error) => {
         console.log(error);
@@ -87,11 +90,11 @@ function Login() {
               />
             </div>
             {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-            <h3>
-              ¿No tenes una cuenta?
+            <h3 className="p-1">
+              ¿No tenés una cuenta?
               <Link
                 to="/register"
-                className="text-blue hover:cursor-pointer text-lg px-2"
+                className="text-blue hover:cursor-pointer text-lg"
               >
                 Registrate
               </Link>

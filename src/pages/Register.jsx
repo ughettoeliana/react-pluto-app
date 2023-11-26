@@ -10,16 +10,59 @@ import {
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
 } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
+
+const createUserProfile = async (id, data) => {
+  const refUser = doc(db, `users/${id}`);
+  return setDoc(refUser, { ...data });
+};
+
+const handleRegister = async ({ email, password }) => {
+  try {
+    const userCredentials = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    //registramos el usuario en Firestore
+    createUserProfile(userCredentials.user.uid, { email });
+    console.log("Cuenta creada con éxito");
+
+    return {
+      id: userCredentials.user.uid,
+      email: userCredentials.user.email,
+    };
+  } catch (error) {
+    return {
+      code: error.code,
+      message: error.message,
+    };
+  }
+};
+
+const addUserToFirestore = async (user) => {
+  const [newUserId, setNewUserId] = useState(null);
+
+
+  if (user) {
+    const usersCollectionRef = collection(db, "users");
+    const newUser = await addDoc(usersCollectionRef, {
+      id: user.uid,
+      email: user.email,
+    });
+    setNewUserId(newUser.id);
+    navigate(`/get-sign/${newUser.id}`);
+  }
+  console.log("El usuario se agrego a firebase");
+};
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [registerLoader, setRegisterLoader] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [newUserId, setNewUserId] = useState(null);
-
   const navigate = useNavigate();
 
   const handleChangeEmail = (e) => {
@@ -30,56 +73,27 @@ function Register() {
     e.preventDefault();
     setRegisterLoader(true);
 
-    const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-    if (!emailIsValid) {
-      console.error("Correo electrónico no válido: ", email);
-      setErrorMessage("El correo electrónico no es válido");
-      setRegisterLoader(false);
-      return;
-    }
-
     try {
-      // Verificar si el correo electrónico ya está en uso
       const signInMethods = await fetchSignInMethodsForEmail(auth, email);
 
       if (signInMethods && signInMethods.length > 0) {
         console.error("Correo electrónico ya está en uso: ", email);
         setErrorMessage("Correo electrónico ya está en uso: ");
       } else {
-        const userCredentials = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
-        const user = userCredentials.user;
-
-        await addUserToFirestore(user);
-        console.log("Cuenta creada con éxito");
+        const newUser = await handleRegister({ email, password });
+        if (newUser) {
+          navigate(`/get-sign/${newUser.id}`);
+        }
       }
+      console.log("handleRegister", handleRegister);
+
+      //await addUserToFirestore(user);
     } catch (error) {
       console.error("Error en el registro:", error.code, error.message);
     } finally {
       setRegisterLoader(false);
     }
   };
-
-  const addUserToFirestore = async (user) => {
-    if (user) {
-      const usersCollectionRef = collection(db, "users");
-      const newUser = await addDoc(usersCollectionRef, {
-        id: user.uid,
-        email: user.email,
-      });
-      console.log('newUser.id', newUser.id)
-      setNewUserId(newUser.id)
-      navigate(`/get-sign/${newUser.id}`);
-      console.log("newUserId:",newUserId)
-    }
-    console.log("El usuario se agrego a firebase");
-  };
-
 
   return (
     <>
@@ -117,7 +131,7 @@ function Register() {
               </div>
               {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
               <h3>
-                ¿Ya tenes una cuenta?
+                ¿Ya tenés una cuenta?
                 <Link
                   to="/login"
                   className="text-blue hover:cursor-pointer text-lg px-2"

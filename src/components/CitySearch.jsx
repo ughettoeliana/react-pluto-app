@@ -18,17 +18,17 @@ const CitySearch = ({ onSelectCity }) => {
 
   const selectingCities = async () => {
     try {
-       if (query.length > 0) {
-         const foundCities = await getCities(query);
-         setResults(foundCities);
-   
-         // Abrir el componente de búsqueda cuando se comienza a escribir
-         setIsOpen(true);
-       }
+      if (query.length > 0) {
+        const foundCities = await getCities(query);
+        setResults(foundCities);
+
+        // Abrir el componente de búsqueda cuando se comienza a escribir
+        setIsOpen(true);
+      }
     } catch (error) {
-       console.error("Error searching for cities:", error);
+      console.error("Error searching for cities:", error);
     }
-   };
+  };
 
   const searchCities = async () => {
     try {
@@ -68,6 +68,9 @@ const CitySearch = ({ onSelectCity }) => {
         key="sm"
         className="flex w-full justify-center flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4"
       >
+        <label className="p-1" htmlFor="email">
+          Ingresá el lugar de tu nacimiento
+        </label>
         <BaseInput
           required
           className="w-1/2"

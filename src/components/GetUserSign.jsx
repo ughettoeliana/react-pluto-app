@@ -92,6 +92,9 @@ const SearchUserSign = ({ newUserId }) => {
           key="sm"
           className="flex w-full justify-center flex-wrap gap-4 md:flex-nowrap mb-6 md:mb-0 "
         >
+          <label className="p-1" htmlFor="email">
+            Ingresá la fecha de tu nacimiento
+          </label>
           <BaseInput
             type="date"
             className="w-1/2"
