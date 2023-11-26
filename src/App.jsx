@@ -17,7 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user-home/:userId" element={<UserHome />} />
-        <Route path="/planet-info/:planetName/:userSign" element={<PlanetInfo />} />
+        <Route path="/planet-info/:planetName/:userId" element={<PlanetInfo />} />
         <Route path="/cicles" element={<Cicles />} />
       </Routes>
     </div>
