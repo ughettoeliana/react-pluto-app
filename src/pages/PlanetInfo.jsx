@@ -1,6 +1,6 @@
 import arrowBack from "../assets/btn-back.svg";
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import UpperUserNavComponent from "../components/UpperUserNav";
 import LowerUserNav from "../components/LowerUserNav";
 import { doc, getDoc } from "firebase/firestore";
@@ -16,6 +16,17 @@ const planetImageMap = {
   mercury: mercuryImage,
   moon: moonImage,
   sun: sunImage,
+};
+
+const spanishPlanetNames = {
+  mars: "Marte",
+  mercury: "Mercurio",
+  moon: "Luna",
+  sun: "Sol",
+};
+
+const capitalizeFirstLetter = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 const GetUserData = async (userId) => {
@@ -60,7 +71,6 @@ export default function PlanetInfo() {
       const selectedPlanetInfo = planetsData.find(
         (planet) => planet.name === planetName
       );
-      console.log("selectedPlanetInfo", selectedPlanetInfo);
       setPlanetInfo(selectedPlanetInfo);
 
       const planetsWithImages = planetsData.map((planet) => {
@@ -70,11 +80,9 @@ export default function PlanetInfo() {
           sign: planet.sign,
         };
       });
-      console.log("planetsWithImages", planetsWithImages);
 
       setPlanetsWithImages(planetsWithImages);
     };
-    console.log("planetInfo", planetInfo);
 
     fetchData();
   }, [userId, planetName]);
@@ -86,12 +94,12 @@ export default function PlanetInfo() {
   return (
     <>
       <UpperUserNavComponent />
-      <div className="flex items-center h-full pb-3">
-        <button onClick={goBack} className="self-start">
-          <img src={arrowBack} alt="Back" className="px-1" />
-        </button>
-        <div className="flex flex-row justify-center items-center">
-          <h2 className="text-2xl pb-3 ">{planetName}</h2>
+
+      <div className="flex items-center justify-between h-full p-3">
+        <div>
+          <button onClick={goBack} className="self-start">
+            <img src={arrowBack} alt="Back" className="px-1" />
+          </button>
         </div>
       </div>
       <div className="flex flex-col justify-center items-center">
@@ -99,7 +107,7 @@ export default function PlanetInfo() {
           <img
             src={
               planetsWithImages.find((planet) => planet.name === planetName)
-                ?.image || ''
+                ?.image || ""
             }
             alt={planetName}
           />
@@ -107,7 +115,9 @@ export default function PlanetInfo() {
       </div>
       <div className="bg-darkGrey p-3 pb-16 my-4 rounded-tl-3xl rounded-tr-3xl max-h-screen tracking-wide">
         <h3 className="text-2xl text-center p-3">
-          {planetInfo && planetInfo.sign}
+          {planetInfo &&
+            planetInfo.name &&
+            capitalizeFirstLetter(spanishPlanetNames[planetInfo.name])} - {planetInfo && planetInfo.sign}
         </h3>
         <p className="p-2">
           El sol revela la cualidad básica de nuestra consciencia, es el factor
