@@ -1,18 +1,41 @@
-import React from 'react'
-import profilePic from '../assets/avatar-anisha.png'
-import notification from '../assets/notification-icon.svg'
-
+import React, { useEffect, useState } from "react";
+import profilePic from "../assets/avatar-anisha.png";
+import notification from "../assets/notification-icon.svg";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../services/firebase";
+import { useParams } from "react-router-dom";
 
 export default function UpperNav() {
+  const [email, setEmail] = useState();
+  const { userId } = useParams();
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userRef = doc(db, "users", userId);
+        const userSnapshot = await getDoc(userRef);
+
+        if (userSnapshot.exists()) {
+          const userData = userSnapshot.data();
+          const userEmail = userData.email;
+          setEmail(userEmail);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [userId]);
   return (
-    <nav className='flex flex-row justify-between items-center p-2 mb-3'>
-      <div className='flex flex-row items-center '>
-        <img src={profilePic} alt="foto del usuario" className='h-12'/>
-        <p className='px-2 mx-2'>Hola @user</p>
+    <nav className="flex flex-row justify-between items-center p-2 mb-3">
+      <div className="flex flex-row items-center ">
+        <img src={profilePic} alt="foto del usuario" className="h-12" />
+        <p className="px-2 mx-2">Hola {email}</p>
       </div>
       <div>
-        <img src={notification}/>
+        <img src={notification} />
       </div>
     </nav>
-  )
+  );
 }

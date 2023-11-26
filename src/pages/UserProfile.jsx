@@ -1,35 +1,34 @@
 import React, { useEffect, useState } from "react";
 import arrowBack from "../assets/btn-back.svg";
+import arrow from "../assets/arrow-right.svg";
+import profilePic from "../assets/avatar-anisha.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
-
-const getUserData = async (userId, setEmail) => {
-  try {
-    const userRef = doc(db, "users", userId);
-    console.log("userRef", userRef);
-
-    const userSnapshot = await getDoc(userRef);
-
-    if (userSnapshot.exists()) {
-      const userData = userSnapshot.data();
-      const userEmail = userData.email;
-      setEmail(userEmail);
-    }
-    console.log("email", email);
-
-  } catch (error) {
-    console.log(error);
-  }
-};
+import LowerUserNav from "../components/LowerUserNav";
 
 function UserProfile() {
   const [email, setEmail] = useState();
-  const userId = useParams();
+  const { userId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    getUserData(userId, setEmail);
+    const fetchData = async () => {
+      try {
+        const userRef = doc(db, "users", userId);
+        const userSnapshot = await getDoc(userRef);
+
+        if (userSnapshot.exists()) {
+          const userData = userSnapshot.data();
+          const userEmail = userData.email;
+          setEmail(userEmail);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
   }, [userId]);
 
   const goBack = () => {
@@ -49,8 +48,32 @@ function UserProfile() {
         </div>
       </div>
       <div>
-        <h2>{email}</h2>
+        <div className=" p-2 mt-4">
+          <div className=" ">
+            <img src={profilePic} alt="foto del usuario" className="h-20" />
+            <h2 className="text-md mx-1 my-4">{email}</h2>
+          </div>
+        </div>
       </div>
+      <div style={{ borderTop: '1px solid #ffff', padding: '3rem 0' }}>
+        <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-4 mx-2 mb-4">
+          <Link to="/cicles">HOY </Link>
+          <img src={arrow} alt="arrow icon" />
+        </div>
+        <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-4 mx-2 mb-4">
+          <Link to="/cicles">TUS CICLOS </Link>
+          <img src={arrow} alt="arrow icon" />
+        </div>
+        <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-4 mx-2 mb-4">
+          <Link to="/cicles">TU CARTA ASTRAL </Link>
+          <img src={arrow} alt="arrow icon" />
+        </div>
+        <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-4 mx-2 mb-4">
+          <Link to="/cicles">CONSULTAR A LOS ASTROS </Link>
+          <img src={arrow} alt="arrow icon" />
+        </div>
+      </div>
+      <LowerUserNav/>
     </div>
   );
 }

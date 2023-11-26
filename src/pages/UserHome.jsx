@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import carta from "../assets/carta.png";
 import mars from "../assets/planets/mars.png";
 import mercury from "../assets/planets/mercury.png";
@@ -21,6 +21,7 @@ function UserHome() {
     { name: "Mercury", imgSrc: mercury },
     { name: "Moon", imgSrc: moon },
   ];
+
 
   return (
     <>
@@ -59,7 +60,7 @@ function UserHome() {
           </div>
         </div>
       </div>
-      <LowerUserNavComponent userId={userId}/>
+      <LowerUserNavComponent/>
     </>
   );
 }
