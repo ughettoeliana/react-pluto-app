@@ -1,4 +1,14 @@
-export default function BaseInput({ id, type, name, value, onChange }) {
+export default function BaseInput({
+  id,
+  type,
+  name,
+  value,
+  onChange,
+  className = "",
+}) {
+
+  const defaultClasses =
+    "max-w-sm bg-darkGrey rounded-xl py-2 px-3 my-2 text-white";
   return (
     <input
       id={id}
@@ -6,7 +16,7 @@ export default function BaseInput({ id, type, name, value, onChange }) {
       name={name}
       value={value}
       onChange={onChange}
-      className="max-w-sm bg-darkGrey rounded-xl py-2 px-3 my-2 text-white"
+      className={`${defaultClasses}${className}`}
     />
   );
 }

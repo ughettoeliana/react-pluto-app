@@ -30,27 +30,37 @@ const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const GetUserData = async (userId) => {
-  const userRef = doc(db, "users", userId);
+const GetUserData = async (id) => {
+  const userRef = doc(db, "users", id);
   try {
     const userSnapshot = await getDoc(userRef);
 
     if (userSnapshot.exists()) {
       const userData = userSnapshot.data();
-      const userPlanetsData = userData.planetsData;
-      const planetsData = [];
+      const userPlanetsData = userData.planets;
 
-      userPlanetsData.forEach((planet) => {
-        const name = planet.name;
-        const sign = planet.zodiacSign;
-        planetsData.push({
-          name: name,
-          sign: sign,
+      if (userPlanetsData) {
+        const planetsData = [];
+
+        userPlanetsData.forEach((planet) => {
+          const name = planet.name;
+          const sign = planet.zodiacSign;
+          planetsData.push({
+            name: name,
+            sign: sign,
+          });
         });
-      });
-      return planetsData;
+
+        return planetsData;
+      } else {
+        console.log(
+          "No se encontraron datos de planetas para el usuario con ID:",
+          id
+        );
+        return null;
+      }
     } else {
-      console.log("No se encontraron datos para el usuario con ID:", userId);
+      console.log("No se encontraron datos para el usuario con ID:", id);
       return null;
     }
   } catch (error) {
@@ -62,12 +72,12 @@ const GetUserData = async (userId) => {
 export default function PlanetInfo() {
   const [planetInfo, setPlanetInfo] = useState(null);
   const [planetsWithImages, setPlanetsWithImages] = useState([]);
-  const { planetName, userId } = useParams();
+  const { planetName, id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      const planetsData = await GetUserData(userId);
+      const planetsData = await GetUserData(id);
 
       const selectedPlanetInfo = planetsData.find(
         (planet) => planet.name === planetName
@@ -86,10 +96,10 @@ export default function PlanetInfo() {
     };
 
     fetchData();
-  }, [userId, planetName]);
+  }, [id, planetName]);
 
   const goBack = () => {
-    navigate(`/user-home/${userId}`);
+    navigate(`/user-home/${id}`);
   };
 
   return (
@@ -119,11 +129,11 @@ export default function PlanetInfo() {
           <h3 className="text-2xl text-center p-3">
             {planetInfo &&
               planetInfo.name &&
-              capitalizeFirstLetter(spanishPlanetNames[planetInfo.name])}{" "}
+              capitalizeFirstLetter(spanishPlanetNames[planetInfo.name])}
             - {planetInfo && planetInfo.sign}
           </h3>
         ) : (
-          <GeneralLoader className="p-4 text-center" size="xl"/>
+          <GeneralLoader className="p-4 text-center" size="xl" />
         )}
         <p className="p-2">
           El sol revela la cualidad básica de nuestra consciencia, es el factor

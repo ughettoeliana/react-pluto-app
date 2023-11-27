@@ -90,15 +90,16 @@ function Login() {
               />
             </div>
             {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-            <h3 className="p-1">
+            <div className="p-1">
               ¿No tenés una cuenta?
+              <br/>
               <Link
                 to="/register"
                 className="text-blue hover:cursor-pointer text-lg"
               >
                 Registrate
               </Link>
-            </h3>
+            </div>
           </div>
           {loginLoader ? (
             <BtnLoader />

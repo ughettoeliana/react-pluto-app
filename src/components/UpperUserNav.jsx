@@ -8,12 +8,12 @@ import GeneralLoader from "../components/GeneralLoader";
 
 export default function UpperNav() {
   const [email, setEmail] = useState();
-  const { userId } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userRef = doc(db, "users", userId);
+        const userRef = doc(db, "users", id);
         const userSnapshot = await getDoc(userRef);
 
         if (userSnapshot.exists()) {
@@ -27,7 +27,7 @@ export default function UpperNav() {
     };
 
     fetchData();
-  }, [userId]);
+  }, [id]);
   return (
     <nav className="flex flex-row justify-between items-center p-2 mb-3">
       <div className="flex flex-row items-center ">

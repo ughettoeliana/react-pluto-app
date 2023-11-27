@@ -12,7 +12,7 @@ import UpperUserNavComponent from "../components/UpperUserNav";
 
 
 function UserHome() {
-  const { userId } = useParams();
+  const { id } = useParams();
 
   const planets = [
     { name: "Sun", imgSrc: sun },
@@ -37,7 +37,7 @@ function UserHome() {
           {planets.map((planet) => (
             <Link
               key={planet.name}
-              to={`/planet-info/${planet.name.toLowerCase()}/${userId}`}
+              to={`/planet-info/${planet.name.toLowerCase()}/${id}`}
             >
               <img src={planet.imgSrc} alt={planet.name} />
               <h3 className="text-center">{planet.name}</h3>
@@ -46,15 +46,15 @@ function UserHome() {
         </div>
         <div className="my-4">
           <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-3 mx-2 my-4">
-            <Link to={`/cicles/${userId}`}>CICLOS </Link>
+            <Link to={`/cicles/${id}`}>CICLOS </Link>
             <img src={arrow} alt="arrow icon" />
           </div>
           <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-3 mx-2 my-4">
-            <Link to={`/cicles/${userId}`}>CICLOS </Link>
+            <Link to={`/cicles/${id}`}>CICLOS </Link>
             <img src={arrow} alt="arrow icon" />
           </div>
           <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-3 mx-2 my-4">
-            <Link to={`/cicles/${userId}`}>CICLOS </Link>
+            <Link to={`/cicles/${id}`}>CICLOS </Link>
             <img src={arrow} alt="arrow icon" />
           </div>
         </div>

@@ -9,13 +9,13 @@ import LowerUserNav from "../components/LowerUserNav";
 
 function UserProfile() {
   const [email, setEmail] = useState();
-  const { userId } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userRef = doc(db, "users", userId);
+        const userRef = doc(db, "users", id);
         const userSnapshot = await getDoc(userRef);
 
         if (userSnapshot.exists()) {
@@ -29,7 +29,7 @@ function UserProfile() {
     };
 
     fetchData();
-  }, [userId]);
+  }, [id]);
 
   const goBack = () => {
     navigate(-1);

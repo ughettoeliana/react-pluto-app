@@ -1,0 +1,16 @@
+/* Estilo para el ícono del input de tipo date en Chrome */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  color: white; 
+  font-size: 16px; 
+  cursor: pointer;
+}
+
+/* Estilo para el ícono del input de tipo time en Chrome */
+input[type="time"]::-webkit-clear-button {
+  -webkit-appearance: none;
+  background: transparent;
+  color: #ffff; 
+  font-size: 16px;
+  cursor: pointer;
+}

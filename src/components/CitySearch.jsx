@@ -81,28 +81,11 @@ s    }
         </div>
         {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
       </div>
-
-      {/* <div
-        key="sm"
-        className="flex w-full justify-center flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4"
-      >
-        <label className="p-1" htmlFor="email">
-          Ingresá el lugar de tu nacimiento
-        </label>
-        <BaseInput
-          required
-          className="w-1/2"
-          type="search"
-          name="search"
-          value={query}
-          onChange={handleChange}
-        />
-      </div> */}
       {isOpen && (
-        <ul className="rounded-md ">
+        <ul className="rounded-md bg-gray-200">
           {results.map((location) => (
             <li
-              className="bg-gray-400 text-black p-2 mx-2 hover:cursor-pointer hover:bg-gray-300"
+              className=" text-black p-2 mx-2 hover:cursor-pointer hover:bg-gray-300"
               key={location.name}
               onClick={() => handleSelectCity(location)}
             >
