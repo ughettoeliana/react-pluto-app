@@ -1,6 +1,6 @@
 import arrowBack from "../assets/btn-back.svg";
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import UpperUserNavComponent from "../components/UpperUserNav";
 import LowerUserNav from "../components/LowerUserNav";
 import { doc, getDoc } from "firebase/firestore";
@@ -113,7 +113,7 @@ export default function PlanetInfo() {
           </button>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center mb-10">
         {planetsWithImages.length > 0 && (
           <img
             src={
@@ -136,18 +136,20 @@ export default function PlanetInfo() {
           <GeneralLoader className="p-4 text-center" size="xl" />
         )}
         <p className="p-2">
-          El sol revela la cualidad básica de nuestra consciencia, es el factor
-          central de nuestra personalidad, del mismo modo como el Sol es el
-          centro de nuestra galaxia.
+          Cada astro del sistema solar revela aspectos únicos de nuestra
+          consciencia y personalidad. Al igual que el Sol, que es el centro de
+          nuestra galaxia, cada astro tiene su propia influencia en distintos
+          aspectos de nuestra vida.
         </p>
         <br />
         <p className="p-2">
-          El elemento solar para este signo muestra el estado de conciencia y
-          aquello que le motiva, fortalece y lo que le apasiona. El Sol en
-          Géminis destaca su mente rápida, razonamientos lógicos y su interés
-          por la comunicación. Para ellos la relación con otras personas es
-          esencial, domina la oratoria, mantener una conversación interesante y
-          viva.
+          El elemento asociado a cada astro refleja el estado de conciencia y lo
+          que nos motiva. Fortalece y revela nuestras pasiones. Por ejemplo, un
+          astro en una posición particular puede resaltar características como
+          la mente rápida, razonamientos lógicos y el interés por la
+          comunicación. La interacción con otras personas es esencial,
+          destacando habilidades como la oratoria y la capacidad de mantener
+          conversaciones interesantes y vivas.
         </p>
       </div>
       <LowerUserNav />

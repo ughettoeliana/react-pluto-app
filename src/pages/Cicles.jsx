@@ -3,10 +3,11 @@ import UpperNav from "../components/UpperUserNav";
 import LowerUserNav from "../components/LowerUserNav";
 import arrow from "../assets/arrow-right.svg";
 import grafica from "../assets/grafica.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import arrowBack from "../assets/btn-back.svg";
 
 export default function Cicles() {
+  const {id} = useParams();
   const navigate = useNavigate();
   const goBack = () => {
     navigate(`/user-home/${id}`);
@@ -23,7 +24,7 @@ export default function Cicles() {
         <h2 className=" text-3xl">Ciclos</h2>
         <p>Ciclos astrológicos importantes que impactan en tu vida.</p>
       </div>
-      <div>
+      <div className=" pb-16">
         <div className="flex flex-row justify-between items-center bg-darkGrey rounded-xl p-3 mx-2 my-4">
           <div className="flex flex-row justify-between items-center">
             <img src={grafica} />

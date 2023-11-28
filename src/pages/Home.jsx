@@ -140,9 +140,9 @@ function App() {
               <img src={avatarShanai} className="w-16 -mt-14" alt="" />
               <h5 className="text-lg font-bold">Shanai Jackson</h5>
               <p className="text-sm text-lightGrey">
-                “Pluto es mi guía diaria hacia la astrología. Me encanta la
+                “PLUTO es mi guía diaria hacia la astrología. Me encanta la
                 precisión de las predicciones y cómo va más allá de lo básico.
-                ¡Descubrir mi carta astral con Pluto fue revelador!
+                ¡Descubrir mi carta astral con PLUTO fue revelador!
                 Definitivamente, mi app astrológica favorita.”
               </p>
             </div>
@@ -151,9 +151,9 @@ function App() {
               <img src={avatarAli} className="w-16 -mt-14" alt="" />
               <h5 className="text-lg font-bold">Ali Bravo</h5>
               <p className="text-sm text-lightGrey">
-                “Pluto es mi rincón celestial. La diversidad de contenidos,
+                “PLUTO es mi rincón celestial. La diversidad de contenidos,
                 desde la astrología tradicional hasta la védica, me permite
-                explorar a fondo. Además, la interfaz es súper amigable. Pluto
+                explorar a fondo. Además, la interfaz es súper amigable. PLUTO
                 ha elevado mi comprensión astrológica y se ha convertido en mi
                 compañero diario. ¡Increíble!”
               </p>
@@ -164,7 +164,7 @@ function App() {
               <h5 className="text-lg font-bold">Richard Watts</h5>
               <p className="text-sm text-lightGrey">
                 “Como entusiasta de la astrología, siempre buscaba contenido en
-                español de calidad. Pluto superó mis expectativas. La función de
+                español de calidad. PLUTO superó mis expectativas. La función de
                 chat con astrólogos es increíble. Recibir orientación
                 personalizada ha marcado la diferencia.”
               </p>

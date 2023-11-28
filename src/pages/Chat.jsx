@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BaseButton from "../components/BaseButton";
 import GeneralLoader from "../components/GeneralLoader";
 import { getUserProfileById } from "../services/user.js";
@@ -19,7 +19,8 @@ function Chat() {
   const [messages, setMessages] = useState([]);
   const [unsubscribeAuth, setUnsubscribeAuth] = useState(() => {});
   const [unsubscribeMessages, setUnsubscribeMessages] = useState(() => {});
-
+  const navigate = useNavigate();
+  
   const handleSendMessage = (e) => {
     e.preventDefault();
     sendChatMessage({

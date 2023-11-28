@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 import LowerUserNav from "../components/LowerUserNav";
+import GeneralLoader from "../components/GeneralLoader";
 
 function UserProfile() {
   const [email, setEmail] = useState();
@@ -51,7 +52,12 @@ function UserProfile() {
         <div className=" p-2 mt-4">
           <div className=" ">
             <img src={profilePic} alt="foto del usuario" className="h-20" />
+
+            {email ? (
             <h2 className="text-md mx-1 my-4">{email}</h2>
+        ) : (
+          <GeneralLoader className="p-4" size="sm" />
+        )}
           </div>
         </div>
       </div>
