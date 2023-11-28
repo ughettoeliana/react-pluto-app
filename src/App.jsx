@@ -8,6 +8,8 @@ import UserHome from "./pages/UserHome";
 import Cicles from "./pages/Cicles";
 import UserProfile from "./pages/UserProfile";
 import Chat from "./pages/Chat";
+import Horoscope from "./pages/Horoscope";
+import UserMoreInfo from "./pages/MoreUserInfo";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/cicles/:id" element={<Cicles />} />
         <Route path="/user-profile/:id" element={<UserProfile />} />
         <Route path="/user-chat/:id" element={<Chat />} />
+        <Route path="/user-horoscope" element={<Horoscope />} />
+        <Route path="/user-more/:id" element={< UserMoreInfo/>} />
       </Routes>
     </div>
   );

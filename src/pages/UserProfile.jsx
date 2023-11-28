@@ -63,19 +63,19 @@ function UserProfile() {
       </div>
       <div style={{ borderTop: '1px solid #ffff', padding: '3rem 0' }}>
         <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-4 mx-2 mb-4">
-          <Link to="/cicles">HOY </Link>
+          <Link to="/user-horoscope">HOY </Link>
           <img src={arrow} alt="arrow icon" />
         </div>
         <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-4 mx-2 mb-4">
-          <Link to="/cicles">TUS CICLOS </Link>
+          <Link to={`/cicles/${id}`}>TUS CICLOS </Link>
           <img src={arrow} alt="arrow icon" />
         </div>
         <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-4 mx-2 mb-4">
-          <Link to="/cicles">TU CARTA ASTRAL </Link>
+          <Link to={`/user-more/${id}`}>MAS SOBRE MI</Link>
           <img src={arrow} alt="arrow icon" />
         </div>
         <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-4 mx-2 mb-4">
-          <Link to="/cicles">CONSULTAR A LOS ASTROS </Link>
+          <Link to={`/chat/${id}`}>CONSULTAR A LOS ASTROS </Link>
           <img src={arrow} alt="arrow icon" />
         </div>
       </div>

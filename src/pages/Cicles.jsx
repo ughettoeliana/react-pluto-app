@@ -47,17 +47,6 @@ export default function Cicles() {
           </div>
           <img src={arrow} alt="arrow icon" />
         </div>
-        <div className="flex flex-row justify-between items-center bg-darkGrey rounded-xl p-3 mx-2 my-4">
-          <div className="flex flex-row justify-between items-center">
-            <img src={grafica} />
-            <div className="px-4">
-              <h3 className="text-xl">Mercurio Retrogrado</h3>
-              <h4>Duración del Ciclo:</h4>
-              <p>28/06/2022 al 11/02/2024</p>
-            </div>
-          </div>
-          <img src={arrow} alt="arrow icon" />
-        </div>
       </div>
       <LowerUserNav />
     </div>

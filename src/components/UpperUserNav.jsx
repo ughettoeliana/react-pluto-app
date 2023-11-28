@@ -29,7 +29,7 @@ export default function UpperNav() {
     fetchData();
   }, [id]);
   return (
-    <nav className="flex flex-row justify-between items-center p-2 mb-3">
+    <nav className="flex flex-row justify-between items-center p-3 mb-3">
       <div className="flex flex-row items-center ">
         <img src={profilePic} alt="foto del usuario" className="h-12" />
         {email ? <p className="px-2 mx-2">Hola {email}</p> : <GeneralLoader className='p-4'/>}

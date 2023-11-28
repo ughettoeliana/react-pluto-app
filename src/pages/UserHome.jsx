@@ -9,8 +9,6 @@ import { Link, useParams } from "react-router-dom";
 import LowerUserNavComponent from "../components/LowerUserNav";
 import UpperUserNavComponent from "../components/UpperUserNav";
 
-
-
 const spanishPlanetNames = {
   Sun: "Sol",
   Mars: "Marte",
@@ -18,11 +16,9 @@ const spanishPlanetNames = {
   Moon: "Luna",
 };
 
-
 const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
-
 
 function UserHome() {
   const { id } = useParams();
@@ -53,7 +49,9 @@ function UserHome() {
             >
               <img src={planet.imgSrc} alt={planet.name} />
               <h3 className="text-center">
-              {capitalizeFirstLetter(spanishPlanetNames[planet.name] ?? planet.name)}
+                {capitalizeFirstLetter(
+                  spanishPlanetNames[planet.name] ?? planet.name
+                )}
               </h3>
             </Link>
           ))}
@@ -64,11 +62,11 @@ function UserHome() {
             <img src={arrow} alt="arrow icon" />
           </div>
           <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-3 mx-2 my-4">
-            <Link to={`/cicles/${id}`}>HOY</Link>
+            <Link to="/user-horoscope">HOY</Link>
             <img src={arrow} alt="arrow icon" />
           </div>
           <div className="flex flex-row justify-between items-center text-2xl bg-darkGrey rounded-xl p-3 mx-2 my-4">
-            <Link to={`/cicles/${id}`}>CARTA ASTRAL</Link>
+            <Link to={`/user-more/${id}`}>MAS SOBRE MI</Link>
             <img src={arrow} alt="arrow icon" />
           </div>
         </div>
