@@ -3,7 +3,7 @@ import BaseButton from "./BaseButton";
 
 function BtnLoader({className}) {
   return (
-    <BaseButton btnText='Cargando...' disable/>
+    <BaseButton btnText='Cargando...' disable className={className}/>
   );
 }
 

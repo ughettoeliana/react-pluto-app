@@ -17,7 +17,6 @@ const getCities = async (query) => {
         longitude: result.geometry.lng,
       }));
       
-      console.log("locations", locations);
       return locations;
     } else {
       console.error("No se encontraron resultados.");

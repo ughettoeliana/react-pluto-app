@@ -23,11 +23,10 @@ function Login() {
     setLoginLoader(true);
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredentials) => {
-        console.log(userCredentials);
 
         if (!userCredentials) {
           setErrorMessage("El correo electrónico no es válido");
-        }else{
+        } else {
           const userId = userCredentials.user.uid;
 
           navigate(`/user-home/${userId}`);
@@ -35,16 +34,13 @@ function Login() {
       })
       .catch((error) => {
         console.log(error);
-         if (error.code === "auth/email-already-in-use") {
+        if (error.code === "auth/email-already-in-use") {
           setErrorMessage(
             "Correo electrónico ya está en uso. Por favor, utiliza otro."
           );
-         } else if(error.code === 'auth/invalid-login-credentials'){
-          setErrorMessage(
-            "No existe una cuenta con ese email."
-          );
-         }
-         else {
+        } else if (error.code === "auth/invalid-login-credentials") {
+          setErrorMessage("No existe una cuenta con ese email.");
+        } else {
           setErrorMessage(
             "Error en el registro. Por favor, inténtalo de nuevo."
           );
@@ -57,64 +53,67 @@ function Login() {
 
   return (
     <>
-    <Navbar/>
-    <div className="min-h-screen">
-      <div className="flex justify-center items-center w-full flex-wrap  py-8 md:flex-nowrap">
-        <form onSubmit={login} className="wy-9  w-1/2">
-          <h1 className="text-center text-3xl py-3 mb-5">Inicio de Sesión</h1>
-          <div className="flex flex-col">
-            <div className="flex flex-col mb-6">
-              <label className="p-1" htmlFor="email">
-                Email
-              </label>
-              <BaseInput
-                id="email"
-                required
-                type="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col mb-6">
-              <label className="p-1" htmlFor="password">
-                Contraseña
-              </label>
-              <BaseInput
-                id="password"
-                required
-                type="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
-            <div className="p-1">
-              ¿No tenés una cuenta?
-              <br/>
-              <Link
-                to="/register"
-                className="text-blue hover:cursor-pointer text-lg"
-              >
-                Registrate
-              </Link>
-            </div>
-          </div>
-          {loginLoader ? (
-            <BtnLoader />
-          ) : (
+      <Navbar />
+      <div className="min-h-screen">
+        <div className="flex justify-center items-center w-full flex-wrap  py-8 md:flex-nowrap">
+          <form onSubmit={login} className="wy-9  w-1/2">
+            <h1 className="text-center text-3xl py-3 mb-5">Inicio de Sesión</h1>
             <div className="flex flex-col">
-              <BaseButton
-                btnText={"Ingresar"}
-                className="my-4"
-                onClick={login}
-              />
+              <div className="flex flex-col mb-6">
+                <label className="p-1" htmlFor="email">
+                  Email
+                </label>
+                <BaseInput
+                  id="email"
+                  required
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col mb-6">
+                <label className="p-1" htmlFor="password">
+                  Contraseña
+                </label>
+                <BaseInput
+                  id="password"
+                  required
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+              <div className="p-1">
+                ¿No tenés una cuenta?
+                <br />
+                <Link
+                  to="/register"
+                  className="text-blue hover:cursor-pointer text-lg"
+                >
+                  Registrate
+                </Link>
+              </div>
             </div>
-          )}
-        </form>
+            {loginLoader ? (
+              <div className=" opacity-80 flex flex-col">
+                <BtnLoader className="my-4" />
+              </div>
+            ) : (
+              <div className="flex flex-col">
+                <BaseButton
+                  btnText={"Ingresar"}
+                  className="my-4"
+                  onClick={login}
+                />
+              </div>
+            )}
+          </form>
+        </div>
       </div>
-    </div></>
+    </>
   );
 }
 

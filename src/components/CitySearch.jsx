@@ -10,7 +10,6 @@ const CitySearch = ({ onSelectCity }) => {
   const [selectedCity, setSelectedCity] = useState(null);
   const [isOpen, setIsOpen] = useState(true);
 
-  console.log("selectedCity", selectedCity);
 
   const handleChange = (event) => {
     const value = event.target.value;
@@ -27,8 +26,9 @@ const CitySearch = ({ onSelectCity }) => {
         setIsOpen(true);
       }
     } catch (error) {
-      setErrorMessage('Algo salió mal volvé a interlo')
-s    }
+      setErrorMessage("Algo salió mal volvé a interlo");
+      s;
+    }
   };
 
   const searchCities = async () => {
@@ -43,13 +43,12 @@ s    }
           selectedCity.longitude,
           query
         );
-        console.log("foundCities: ", foundCities);
         setResults(foundCities);
       } else {
         console.warn(
           "Latitude or longitude is undefined. Skipping city search."
         );
-        setResults([]); 
+        setResults([]);
       }
     } catch (error) {
       console.error("Error searching for cities:", error);

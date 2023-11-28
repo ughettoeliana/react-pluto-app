@@ -11,7 +11,6 @@ export async function getUserProfileById(id) {
   const docSnapshot = await getDoc(refUser);
 
   if (docSnapshot.exists()) {
-    console.log("Document data:", docSnapshot.data());
     return {
       id: docSnapshot.id,
       email: docSnapshot.data().email,
@@ -34,8 +33,6 @@ export async function getUserProfileById(id) {
 
 
 export default async function updateUserPlanetsData(newUserId,validPlanetData) {
-    console.log("newUserId", newUserId)
-    console.log("validPlanetData", validPlanetData)
   try {
     const userRef = doc(db, "users", newUserId);
     await updateDoc(userRef, {

@@ -129,8 +129,7 @@ export default function PlanetInfo() {
           <h3 className="text-2xl text-center p-3">
             {planetInfo &&
               planetInfo.name &&
-              capitalizeFirstLetter(spanishPlanetNames[planetInfo.name])}
-            - {planetInfo && planetInfo.sign}
+              capitalizeFirstLetter(spanishPlanetNames[planetInfo.name])} - {planetInfo && planetInfo.sign}
           </h3>
         ) : (
           <GeneralLoader className="p-4 text-center" size="xl" />

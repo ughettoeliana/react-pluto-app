@@ -21,7 +21,6 @@ function AuthDetails() {
   const userSignOut = () => {
     signOut(auth)
       .then(() => {
-        console.log("Cerraste Sesión");
         navigate("/");
       })
       .catch((error) => {

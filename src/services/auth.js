@@ -51,7 +51,6 @@ export async function register({ email, password }) {
 
     //registramos el usuario en Firestore
     createUserProfile(userCredentials.user.uid, { email });
-      console.log("userCredentials.user", userCredentials.user)
     return {
       id: userCredentials.user.uid,
       email: userCredentials.user.email,

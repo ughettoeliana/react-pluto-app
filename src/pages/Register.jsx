@@ -97,7 +97,9 @@ function Register() {
             </div>
 
             {registerLoading ? (
-              <BtnLoader className="my-4 flex flex-col" />
+              <div className=" opacity-80 flex flex-col">
+                <BtnLoader className="my-4" />
+              </div>
             ) : (
               <div className="flex flex-col">
                 <BaseButton

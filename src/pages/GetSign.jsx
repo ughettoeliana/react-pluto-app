@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 
 const GetSign = () => {
   const  {newUserId}  = useParams();
-  console.log("newUserId:", newUserId);
 
   return (
     <>
